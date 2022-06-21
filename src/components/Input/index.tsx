@@ -1,17 +1,14 @@
-import {
-  ChangeEvent,
-  Dispatch,
-  InputHTMLAttributes,
-  SetStateAction,
-} from "react";
-import { InputContainer, LabelBox, InputBox } from "./styles";
+import { ChangeEvent, InputHTMLAttributes } from "react";
+import { InputContainer, LabelBox, InputBox, Error } from "./styles";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   type: string;
   name: string;
   label: string;
   value: string | number;
-  setValue: Dispatch<SetStateAction<string>>;
+  error?: string;
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  onBlur: () => void;
 }
 
 export const Input = ({
@@ -19,13 +16,11 @@ export const Input = ({
   name,
   label,
   value,
-  setValue,
+  onChange,
+  onBlur,
+  error,
   ...rest
 }: InputProps) => {
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
-  };
-
   return (
     <InputContainer>
       <LabelBox htmlFor={name}>{label}</LabelBox>
@@ -34,10 +29,11 @@ export const Input = ({
         id={name}
         name={name}
         value={value}
-        onChange={handleInputChange}
+        onChange={onChange}
+        onBlur={onBlur}
         {...rest}
       />
-      <p>Error</p>
+      {error && <Error>{error}</Error>}
     </InputContainer>
   );
 };
