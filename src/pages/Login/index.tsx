@@ -1,12 +1,15 @@
 import { FormEvent } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { useForm } from "../../hooks/useForm";
 import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
+import { BoxLogin, SectionForm, Form, BoxCadastro } from "../../styles/Login";
+import loginImg from "../../assets/login.jpg";
 
 export const Login = () => {
-  const { getToken, loading, token, user } = useAuthContext();
+  const { getToken, loading } = useAuthContext();
+  const navigate = useNavigate();
   const username = useForm();
   const password = useForm();
 
@@ -19,21 +22,34 @@ export const Login = () => {
         password: password.value,
       };
 
-      await getToken(params);
+      const response = await getToken(params);
+
+      if (response?.status === 200) {
+        navigate("/");
+      }
     }
   };
 
   return (
-    <section>
-      <h1>Login</h1>
-      <form onSubmit={handleLoginSubmit}>
-        <Input type="text" name="username" label="Usuário" {...username} />
-        <Input type="password" name="password" label="Senha" {...password} />
-        <Button type="submit" disabled={loading}>
-          Entrar
-        </Button>
-      </form>
-      <Link to="/login/criar">Cadastro</Link>
-    </section>
+    <BoxLogin backgroundImage={loginImg}>
+      <SectionForm className="animeLeft">
+        <h1 className="title">Login</h1>
+        <Form onSubmit={handleLoginSubmit}>
+          <Input type="text" name="username" label="Usuário" {...username} />
+          <Input type="password" name="password" label="Senha" {...password} />
+          <Button type="submit" disabled={loading}>
+            Entrar
+          </Button>
+          <Link to="/login/perdeu">Perdeu a senha?</Link>
+        </Form>
+        <BoxCadastro>
+          <h2>Cadastre-se</h2>
+          <p>Ainda não possui conta? Cadastre-se no site</p>
+          <Link to="/login/criar">
+            <Button>Cadastro</Button>
+          </Link>
+        </BoxCadastro>
+      </SectionForm>
+    </BoxLogin>
   );
 };

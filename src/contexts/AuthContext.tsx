@@ -6,6 +6,8 @@ import {
   useEffect,
   useState,
 } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { AxiosResponse } from "axios";
 import { toast } from "react-toastify";
 import { api } from "../services/api";
 
@@ -19,7 +21,7 @@ type ParamsGetTokenProps = {
 };
 
 type AuthContextProps = {
-  getToken: (params: ParamsGetTokenProps) => Promise<void>;
+  getToken: (params: ParamsGetTokenProps) => Promise<AxiosResponse | undefined>;
   getUser: (token: string) => Promise<void>;
   loading: boolean;
   token: GetTokenProps;
@@ -43,6 +45,8 @@ type GetUserProps = {
 export const AuthContext = createContext({} as AuthContextProps);
 
 export function AuthContextProvider({ children }: AuthContextProviderProps) {
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState<GetUserProps>();
   const [token, setToken] = useState<GetTokenProps>(() => {
@@ -68,12 +72,44 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
           setToken(response.data);
           localStorage.setItem("@dogs.token", JSON.stringify(response.data));
 
-          getUser(response.data.token);
+          await getUser(response.data.token);
         }
       }
+
+      return response;
     } catch (error: any) {
       const { data } = error.response;
       toast.error(data.message);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  const validateToken = useCallback(async (token: string) => {
+    try {
+      setLoading(true);
+
+      const response = await api.post(
+        "/jwt-auth/v1/token/validate",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        await getUser(token);
+      }
+    } catch (error: any) {
+      const { data } = error.response;
+
+      if (data.data.status === 403) {
+        toast.error("Token inválido, faça login novamente");
+        localStorage.removeItem("@dogs.token");
+        location.href = "/login";
+      }
     } finally {
       setLoading(false);
     }
@@ -99,10 +135,19 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
   }, []);
 
   useEffect(() => {
-    if (token.token) {
-      getUser(token.token);
+    const getTokenStorage = localStorage.getItem("@dogs.token");
+
+    if (getTokenStorage) {
+      const tokenParsed = JSON.parse(getTokenStorage);
+      validateToken(tokenParsed.token);
     }
-  }, [token.token]);
+  }, []);
+
+  useEffect(() => {
+    if (pathname === "/login" && token.token) {
+      navigate("/");
+    }
+  }, [pathname, token.token]);
 
   return (
     <AuthContext.Provider value={{ getToken, getUser, loading, token, user }}>

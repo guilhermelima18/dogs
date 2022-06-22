@@ -10,13 +10,18 @@ export const GlobalStyle = createGlobalStyle`
 
   :root {
     --type-first: Helvetica, Arial, sans-serif;
-    --type-second: 'Spectral', Georgia;
+    --type-second: 'Spectral', georgia;
   }
 
   body {
     color: #333;
     font-family: var(--type-first);
     padding-top: 5rem;
+  }
+
+  a {
+    text-decoration: none;
+    color: #333;
   }
 
   h1, h2, h3, h4, p {
@@ -39,5 +44,40 @@ export const GlobalStyle = createGlobalStyle`
     font-size: 1rem;
     font-family: var(--type-first);
     color: #333;
+  }
+
+  .title {
+    font-family: var(--type-second);
+    line-height: 1;
+    font-size: 3rem;
+    margin: 1rem 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .title::after {
+    content: '';
+    background: #FB1;
+    display: block;
+    width: 1.5rem;
+    height: 1.5rem;
+    position: absolute;
+    bottom: 5px;
+    left: -5px;
+    z-index: -1;
+    border-radius: 0.2rem;
+  }
+
+  .animeLeft {
+    opacity: 0;
+    transform: translateX(-20px);
+    animation: animeLeft .3s forwards;
+  }
+
+  @keyframes animeLeft {
+    to {
+      opacity: 1;
+      transform: initial;
+    }
   }
 `;
