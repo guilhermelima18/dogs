@@ -2,10 +2,10 @@ import { FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { useForm } from "../../hooks/useForm";
-import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
-import { BoxLogin, SectionForm, Form, BoxCadastro } from "../../styles/Login";
+import { Button } from "../../components/Button";
 import loginImg from "../../assets/login.jpg";
+import { BoxLogin, SectionForm, Form, BoxCadastro } from "../../styles/Login";
 
 export const Login = () => {
   const { getToken, loading } = useAuthContext();
@@ -25,7 +25,7 @@ export const Login = () => {
       const response = await getToken(params);
 
       if (response?.status === 200) {
-        navigate("/");
+        navigate("/conta");
       }
     }
   };

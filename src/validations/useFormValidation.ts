@@ -8,6 +8,7 @@ export const validationForm: ValidationForm = {
   },
   password: {
     regex: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/,
-    message: "Sua senha deve conter 8 letras e ou números",
+    message:
+      "A senha deve conter 1 caracter maíusculo, 1 minúsculo e 1 dígito. Com no mínimo 8 caractéres.",
   },
 };

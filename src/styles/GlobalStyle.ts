@@ -46,6 +46,10 @@ export const GlobalStyle = createGlobalStyle`
     color: #333;
   }
 
+  button {
+    cursor: pointer;
+  }
+
   .title {
     font-family: var(--type-second);
     line-height: 1;
