@@ -11,4 +11,8 @@ export const validationForm: ValidationForm = {
     message:
       "A senha deve conter 1 caracter maíusculo, 1 minúsculo e 1 dígito. Com no mínimo 8 caractéres.",
   },
+  number: {
+    regex: /^\d+$/,
+    message: "Utilize apenas números.",
+  },
 };

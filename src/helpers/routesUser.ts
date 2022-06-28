@@ -1,5 +1,5 @@
 export const routesUser = {
-  minhasFotos: "/conta",
-  estatisticas: "/conta/estatisticas",
-  adicionarFoto: "/conta/postar",
+  minhasFotos: "/minha-conta",
+  estatisticas: "/minha-conta/estatisticas",
+  adicionarFoto: "/minha-conta/postar",
 };

@@ -7,4 +7,8 @@ export type ValidationForm = {
     regex: RegExp;
     message: string;
   };
+  number: {
+    regex: RegExp;
+    message: string;
+  };
 };

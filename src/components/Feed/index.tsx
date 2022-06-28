@@ -1,3 +1,6 @@
+import { FeedPhotos } from "./FeedPhotos";
+import {} from "./styles";
+
 export const Feed = () => {
-  return <h1>Feed</h1>;
+  return <FeedPhotos />;
 };

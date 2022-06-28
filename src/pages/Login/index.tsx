@@ -25,7 +25,7 @@ export const Login = () => {
       const response = await getToken(params);
 
       if (response?.status === 200) {
-        navigate("/conta");
+        navigate("/minha-conta");
       }
     }
   };
@@ -45,7 +45,7 @@ export const Login = () => {
         <BoxCadastro>
           <h2>Cadastre-se</h2>
           <p>Ainda não possui conta? Cadastre-se no site</p>
-          <Link to="/login/criar">
+          <Link to="/login/cadastro">
             <Button>Cadastro</Button>
           </Link>
         </BoxCadastro>

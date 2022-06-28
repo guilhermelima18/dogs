@@ -14,7 +14,7 @@ export const Header = () => {
           <img src={dogsImg} alt="Dogs" />
         </Link>
         {user ? (
-          <Link to="/conta">{user?.nome}</Link>
+          <Link to="/minha-conta">{user?.nome}</Link>
         ) : (
           <Link to="/login">Login / Criar</Link>
         )}
