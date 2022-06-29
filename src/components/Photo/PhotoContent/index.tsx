@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
-import { GetPhotoProps } from "../../../types/useGetPhotoType";
+import { useAuthContext } from "../../../contexts/AuthContext";
+import { Image } from "../../Image";
 import { PhotoComments } from "../PhotoComments";
+import { PhotoDelete } from "../PhotoDelete";
+import { GetPhotoProps } from "../../../types/useGetPhotoType";
 import {
   BoxPhotoContent,
   BoxPhotoDetails,
@@ -13,6 +16,7 @@ type PhotoContentProps = {
 };
 
 export const PhotoContent = ({ photo }: PhotoContentProps) => {
+  const { user } = useAuthContext();
   const { photo: photoData, comments } = photo;
 
   if (photoData === undefined) return null;
@@ -20,12 +24,18 @@ export const PhotoContent = ({ photo }: PhotoContentProps) => {
   return (
     <BoxPhotoContent>
       <div>
-        <img src={photoData.src} alt={photoData.title} />
+        <Image src={photoData.src} alt={photoData.title} />
       </div>
       <BoxPhotoDetails>
         <div>
           <BoxAuthor>
-            <Link to={`/perfil/${photoData.author}`}>@{photoData.author}</Link>
+            {user && user.username === photoData.author ? (
+              <PhotoDelete photoId={photoData.id} />
+            ) : (
+              <Link to={`/perfil/${photoData.author}`}>
+                @{photoData.author}
+              </Link>
+            )}
             <span>{photoData.acessos}</span>
           </BoxAuthor>
           <h1 className="title">
@@ -36,8 +46,8 @@ export const PhotoContent = ({ photo }: PhotoContentProps) => {
             <li>{Number(photoData.idade) > 1 ? "anos" : "ano"}</li>
           </BoxAttributes>
         </div>
+        <PhotoComments photoId={photoData.id} comments={comments} />
       </BoxPhotoDetails>
-      <PhotoComments />
     </BoxPhotoContent>
   );
 };

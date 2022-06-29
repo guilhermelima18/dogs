@@ -23,6 +23,8 @@ export const FeedModal = ({ photoId, setModalIsOpen }: FeedModalProps) => {
     }
   };
 
+  if (photo === undefined) return null;
+
   return (
     <FeedModalBox onClick={handleOutside}>
       {photo && <PhotoContent photo={photo} />}

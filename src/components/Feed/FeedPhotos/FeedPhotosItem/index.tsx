@@ -1,7 +1,7 @@
-import { BoxFeedItem } from "./styles";
+import { Dispatch, SetStateAction } from "react";
+import { Image } from "../../../Image";
 import { PhotosProps } from "../../../../types/useGetPhotosType";
-import { Dispatch, SetStateAction, useState } from "react";
-import { FeedModal } from "../../FeedModal";
+import { BoxFeedItem } from "./styles";
 
 type FeedPhotosItemProps = {
   photo: PhotosProps;
@@ -23,7 +23,7 @@ export const FeedPhotosItem = ({
 
   return (
     <BoxFeedItem onClick={handleOpenModal}>
-      <img src={photo.src} alt={photo.title} />
+      <Image src={photo.src} alt={photo.title} />
       <span>{photo.acessos}</span>
     </BoxFeedItem>
   );

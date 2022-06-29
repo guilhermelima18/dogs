@@ -37,7 +37,7 @@ export const BoxFeedItem = styled.li`
     grid-row: span 2;
   }
 
-  img {
+  div {
     grid-area: 1 / 1;
   }
 
