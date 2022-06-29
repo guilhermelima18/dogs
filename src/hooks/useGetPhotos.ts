@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 import { toast } from "react-toastify";
-import { formatDate } from "../helpers/formatDate";
 import { api } from "../services/api";
+import { formatDate } from "../helpers/formatDate";
 import { PhotosProps } from "../types/useGetPhotosType";
 
 export function useGetPhotos() {
@@ -27,8 +27,6 @@ export function useGetPhotos() {
             setPhotos(dataFormatted);
           }
         }
-
-        console.log(response);
       } catch (error: any) {
         const { data } = error.response;
         toast.error(data.message);

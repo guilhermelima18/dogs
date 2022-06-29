@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { signOut } from "../../../contexts/AuthContext";
 import { routesUser } from "../../../helpers/routesUser";
 import { useMediaQuery } from "../../../hooks/useMediaQuery";
 import {
@@ -87,7 +88,11 @@ export const UserHeaderNav = () => {
               <AdicionarIcon />
             </Button>
           </Link>
-          <Button pathname={pathname} isCurrentRoute={"/sair"}>
+          <Button
+            pathname={pathname}
+            isCurrentRoute={"/sair"}
+            onClick={signOut}
+          >
             <SairIcon />
           </Button>
         </NavContainer>

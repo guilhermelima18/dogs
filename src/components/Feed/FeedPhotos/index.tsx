@@ -1,25 +1,34 @@
-import { useEffect } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
 import { useGetPhotos } from "../../../hooks/useGetPhotos";
+import { PhotosProps } from "../../../types/useGetPhotosType";
+import { Layout } from "../../Layout";
 import { FeedPhotosItem } from "./FeedPhotosItem";
-import {} from "./styles";
+import { BoxFeed } from "./styles";
 
-export const FeedPhotos = () => {
-  const { getPhotos, photos, loading } = useGetPhotos();
+type FeedPhotosProps = {
+  setModalIsOpen: Dispatch<SetStateAction<boolean>>;
+  setPhotoId?: Dispatch<SetStateAction<number | undefined>>;
+  photos: PhotosProps[];
+};
 
-  useEffect(() => {
-    const params = {
-      page: 1,
-      total: 6,
-      user: 8721,
-    };
-
-    getPhotos(params.page, params.total, params.user);
-  }, []);
-
+export const FeedPhotos = ({
+  photos,
+  setModalIsOpen,
+  setPhotoId,
+}: FeedPhotosProps) => {
   return (
-    <ul className="animeLeft">
-      {photos &&
-        photos.map((photo) => <FeedPhotosItem key={photo.id} photo={photo} />)}
-    </ul>
+    <Layout>
+      <BoxFeed className="animeLeft">
+        {photos &&
+          photos.map((photo) => (
+            <FeedPhotosItem
+              key={photo.id}
+              photo={photo}
+              setModalIsOpen={setModalIsOpen}
+              setPhotoId={setPhotoId}
+            />
+          ))}
+      </BoxFeed>
+    </Layout>
   );
 };

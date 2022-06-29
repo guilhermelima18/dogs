@@ -156,4 +156,9 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
   );
 }
 
+export const signOut = () => {
+  localStorage.removeItem("@dogs.token");
+  location.href = "/login";
+};
+
 export const useAuthContext = () => useContext(AuthContext);
