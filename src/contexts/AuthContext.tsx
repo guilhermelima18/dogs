@@ -4,6 +4,7 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useLayoutEffect,
   useState,
 } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -134,7 +135,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
     }
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const getTokenStorage = localStorage.getItem("@dogs.token");
 
     if (getTokenStorage) {

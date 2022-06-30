@@ -23,7 +23,9 @@ export const FeedModal = ({ photoId, setModalIsOpen }: FeedModalProps) => {
     }
   };
 
-  if (photo === undefined) return null;
+  if (photo === undefined) {
+    return null;
+  }
 
   return (
     <FeedModalBox onClick={handleOutside}>

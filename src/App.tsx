@@ -11,8 +11,10 @@ export default function App() {
     <BrowserRouter>
       <AuthContextProvider>
         <Header />
-        <AppRoutes />
-        <Footer />
+        <div style={{ margin: "2rem" }}>
+          <AppRoutes />
+        </div>
+        {/* <Footer /> */}
       </AuthContextProvider>
       <GlobalStyle />
       <ToastContainer autoClose={3000} />

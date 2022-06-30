@@ -23,7 +23,7 @@ export const PhotoComments = ({ photoId, comments }: PhotoCommentsProps) => {
   }, [photoComments]);
 
   return (
-    <>
+    <div>
       <BoxPhotoComments ref={commentsSection}>
         {photoComments &&
           photoComments.map((comment) => (
@@ -33,12 +33,12 @@ export const PhotoComments = ({ photoId, comments }: PhotoCommentsProps) => {
             </li>
           ))}
       </BoxPhotoComments>
-      {token && (
+      {token.token && (
         <PhotoCommentsForm
           photoId={photoId}
           setPhotoComments={setPhotoComments}
         />
       )}
-    </>
+    </div>
   );
 };

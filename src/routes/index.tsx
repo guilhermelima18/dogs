@@ -4,7 +4,8 @@ import { Login } from "../pages/Login";
 import Home from "../pages/Home";
 import Conta from "../pages/Conta";
 import LoginCreate from "../pages/Login/LoginCreate";
-import PostarFoto from "../pages/Conta/PostarFoto";
+import PostPhoto from "../pages/Conta/PostPhoto";
+import Photo from "../pages/Photo";
 
 export const AppRoutes = () => {
   return (
@@ -18,8 +19,9 @@ export const AppRoutes = () => {
       />
       <Route
         path="/minha-conta/postar"
-        element={<PrivateRoutes Component={PostarFoto} />}
+        element={<PrivateRoutes Component={PostPhoto} />}
       />
+      <Route path="/foto/:id" element={<Photo />} />
     </Routes>
   );
 };

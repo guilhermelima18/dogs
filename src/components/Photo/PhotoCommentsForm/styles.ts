@@ -4,8 +4,7 @@ export const BoxForm = styled.form`
   width: 100%;
   display: grid;
   grid-template-columns: 1fr auto;
-  align-items: stretch;
-  margin: 1rem 0;
+  margin: 0 0 1rem 0;
 
   textarea {
     background-color: #eee;

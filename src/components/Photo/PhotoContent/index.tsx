@@ -13,20 +13,24 @@ import {
 
 type PhotoContentProps = {
   photo: GetPhotoProps;
+  isSinglePage?: boolean;
 };
 
-export const PhotoContent = ({ photo }: PhotoContentProps) => {
+export const PhotoContent = ({
+  photo,
+  isSinglePage = false,
+}: PhotoContentProps) => {
   const { user } = useAuthContext();
   const { photo: photoData, comments } = photo;
 
   if (photoData === undefined) return null;
 
   return (
-    <BoxPhotoContent>
+    <BoxPhotoContent isSinglePage={isSinglePage}>
       <div>
         <Image src={photoData.src} alt={photoData.title} />
       </div>
-      <BoxPhotoDetails>
+      <BoxPhotoDetails isSinglePage={isSinglePage}>
         <div>
           <BoxAuthor>
             {user && user.username === photoData.author ? (
@@ -43,7 +47,9 @@ export const PhotoContent = ({ photo }: PhotoContentProps) => {
           </h1>
           <BoxAttributes>
             <li>{photoData.peso} kg</li>
-            <li>{Number(photoData.idade) > 1 ? "anos" : "ano"}</li>
+            <li>
+              {photoData.idade} {Number(photoData.idade) > 1 ? "anos" : "ano"}
+            </li>
           </BoxAttributes>
         </div>
         <PhotoComments photoId={photoData.id} comments={comments} />

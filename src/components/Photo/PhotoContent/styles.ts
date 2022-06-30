@@ -1,13 +1,18 @@
 import styled from "styled-components";
 import overviewBlackImg from "../../../assets/visualizacao-black.svg";
 
-export const BoxPhotoContent = styled.div`
+interface BoxPhotoContentProps {
+  isSinglePage: boolean;
+}
+
+export const BoxPhotoContent = styled.div<BoxPhotoContentProps>`
   background-color: white;
   margin: auto;
-  height: 36rem;
+  height: ${(props) => (props.isSinglePage ? "auto" : "36rem")};
   border-radius: 0.2rem;
   display: grid;
-  grid-template-columns: 36rem 20rem;
+  grid-template-columns: ${(props) =>
+    props.isSinglePage ? "1fr" : "36rem 20rem"};
   grid-template-rows: auto 1fr auto;
   overflow: hidden;
   opacity: 0;
@@ -22,7 +27,9 @@ export const BoxPhotoContent = styled.div`
   }
 
   > div img {
-    grid-row: 1 / 4;
+    border-radius: ${(props) => (props.isSinglePage ? "0.5rem" : "0")};
+    overflow: ${(props) => (props.isSinglePage ? "hidden" : "")};
+    grid-row: ${(props) => (props.isSinglePage ? 1 : 1 / 4)};
   }
 
   @media (max-width: 64rem) {
@@ -39,8 +46,12 @@ export const BoxPhotoContent = styled.div`
   }
 `;
 
-export const BoxPhotoDetails = styled.div`
-  padding: 2rem 2rem 0 2rem;
+export const BoxPhotoDetails = styled.div<BoxPhotoContentProps>`
+  padding: ${(props) =>
+    props.isSinglePage ? "1rem 0 0 0" : "2rem 2rem 0 2rem"};
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 export const BoxAuthor = styled.p`

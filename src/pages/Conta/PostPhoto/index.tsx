@@ -13,7 +13,7 @@ type ImgProps = {
   raw: File;
 };
 
-export default function PostarFoto() {
+export default function PostPhoto() {
   const navigate = useNavigate();
   const { registerPhoto } = useCreatePhoto();
   const nome = useForm();

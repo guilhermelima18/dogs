@@ -5,10 +5,13 @@ import { api } from "../services/api";
 import { GetPhotoProps } from "../types/useGetPhotoType";
 
 export function useGetPhoto() {
-  const [photo, setPhoto] = useState<GetPhotoProps>({} as GetPhotoProps);
+  const [photo, setPhoto] = useState<GetPhotoProps>();
+  const [loading, setLoading] = useState(false);
 
   const getPhoto = useCallback(async (photoId: number) => {
     try {
+      setLoading(true);
+
       const response = await api.get(`/api/photo/${photoId}`);
 
       if (response) {
@@ -31,11 +34,14 @@ export function useGetPhoto() {
     } catch (error: any) {
       const { data } = error.response;
       toast.error(data.message);
+    } finally {
+      setLoading(false);
     }
   }, []);
 
   return {
     getPhoto,
     photo,
+    loading,
   };
 }
