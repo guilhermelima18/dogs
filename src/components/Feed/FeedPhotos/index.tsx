@@ -21,6 +21,7 @@ type FeedPhotosProps = {
   setPhotoId?: Dispatch<SetStateAction<number | undefined>>;
   setInfinite: Dispatch<SetStateAction<boolean>>;
   page: number;
+  user?: string;
 };
 
 export const FeedPhotos = ({
@@ -28,14 +29,15 @@ export const FeedPhotos = ({
   setPhotoId,
   setInfinite,
   page,
+  user: username,
 }: FeedPhotosProps) => {
   const { pathname } = useLocation();
   const { user } = useAuthContext();
-  const [photos, setPhotos] = useState<PhotosProps[]>([]);
   const [loading, setLoading] = useState(false);
+  const [photos, setPhotos] = useState<PhotosProps[]>([]);
 
   const getPhotos = useCallback(
-    async (page: number, total: number, user: number) => {
+    async (page: number, total: number, user: string | number) => {
       try {
         setLoading(true);
 
@@ -70,8 +72,15 @@ export const FeedPhotos = ({
   );
 
   useEffect(() => {
-    const totalPhotos = 3;
-    const userId = pathname === "/" ? 0 : user?.id;
+    const totalPhotos = 6;
+    const allPhotosId = 0;
+
+    const userId =
+      pathname === "/"
+        ? allPhotosId
+        : pathname === `/perfil/${username}`
+        ? username
+        : user?.id;
 
     getPhotos(page, totalPhotos, userId!);
   }, [pathname, user, page]);
@@ -80,14 +89,6 @@ export const FeedPhotos = ({
     <Layout>
       {loading ? (
         <Loading />
-      ) : photos.length === 0 ? (
-        <BoxEmpty>
-          <h1>
-            {pathname === "/"
-              ? "Não há mais fotos a serem carregadas."
-              : "Não há fotos para esse usuário."}
-          </h1>
-        </BoxEmpty>
       ) : (
         <BoxFeed className="animeLeft">
           {photos &&

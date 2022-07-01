@@ -15,7 +15,7 @@ type ImgProps = {
 
 export default function PostPhoto() {
   const navigate = useNavigate();
-  const { registerPhoto } = useCreatePhoto();
+  const { registerPhoto, loading } = useCreatePhoto();
   const nome = useForm();
   const peso = useForm("number");
   const idade = useForm("number");
@@ -58,7 +58,9 @@ export default function PostPhoto() {
           <Input label="Peso" type="text" name="peso" {...peso} />
           <Input label="Idade" type="text" name="idade" {...idade} />
           <input type="file" name="img" id="img" onChange={handleChange} />
-          <Button type="submit">Enviar</Button>
+          <Button type="submit" disabled={loading}>
+            {loading ? "Enviando..." : "Enviar"}
+          </Button>
         </form>
         <div>
           {img?.preview && <BoxImagePreview imgPreview={img.preview} />}

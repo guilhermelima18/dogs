@@ -22,7 +22,7 @@ export const PhotoDelete = ({ photoId }: PhotoDeleteProps) => {
           toast.info(response.data);
 
           setTimeout(() => {
-            window.location.reload();
+            window.location.href = "/";
           }, 2000);
         }
       }

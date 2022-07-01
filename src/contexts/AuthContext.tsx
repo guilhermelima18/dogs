@@ -4,7 +4,6 @@ import {
   useCallback,
   useContext,
   useEffect,
-  useLayoutEffect,
   useState,
 } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -45,11 +44,25 @@ type GetUserProps = {
 
 export const AuthContext = createContext({} as AuthContextProps);
 
+export const signOut = () => {
+  localStorage.removeItem("@dogs.token");
+  localStorage.removeItem("@dogs.user");
+  location.href = "/login";
+};
+
 export function AuthContextProvider({ children }: AuthContextProviderProps) {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const [user, setUser] = useState<GetUserProps>();
+  const [user, setUser] = useState<GetUserProps>(() => {
+    const getUserStorage = localStorage.getItem("@dogs.user");
+
+    if (getUserStorage) {
+      return JSON.parse(getUserStorage);
+    }
+
+    return {} as GetUserProps;
+  });
   const [token, setToken] = useState<GetTokenProps>(() => {
     const getTokenStorage = localStorage.getItem("@dogs.token");
 
@@ -80,7 +93,10 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
       return response;
     } catch (error: any) {
       const { data } = error.response;
-      toast.error(data.message);
+
+      if (data.data.status === 403) {
+        toast.error("Usuário ou senha incorretos.");
+      }
     } finally {
       setLoading(false);
     }
@@ -108,8 +124,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
 
       if (data.data.status === 403) {
         toast.error("Token inválido, faça login novamente");
-        localStorage.removeItem("@dogs.token");
-        location.href = "/login";
+        signOut();
       }
     } finally {
       setLoading(false);
@@ -126,6 +141,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
 
       if (response) {
         if (response.status === 200) {
+          localStorage.setItem("@dogs.user", JSON.stringify(response.data));
           setUser(response.data);
         }
       }
@@ -135,7 +151,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
     }
   }, []);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const getTokenStorage = localStorage.getItem("@dogs.token");
 
     if (getTokenStorage) {
@@ -156,10 +172,5 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
     </AuthContext.Provider>
   );
 }
-
-export const signOut = () => {
-  localStorage.removeItem("@dogs.token");
-  location.href = "/login";
-};
 
 export const useAuthContext = () => useContext(AuthContext);

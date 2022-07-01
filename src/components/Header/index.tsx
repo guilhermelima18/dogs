@@ -13,7 +13,7 @@ export const Header = () => {
         <Link to="/" aria-label="Dogs - Home">
           <img src={dogsImg} alt="Dogs" />
         </Link>
-        {user ? (
+        {user?.id ? (
           <Link to="/minha-conta">{user?.nome}</Link>
         ) : (
           <Link to="/login">Login / Criar</Link>

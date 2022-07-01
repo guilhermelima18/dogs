@@ -33,7 +33,7 @@ export default function LoginCreate() {
         toast.success("Cadastro efetuado com sucesso!");
         await getToken({ username: username.value, password: password.value });
         setTimeout(() => {
-          navigate("/conta");
+          navigate("/");
         }, 2000);
       }
     }
@@ -47,7 +47,9 @@ export default function LoginCreate() {
           <Input label="Usuário" type="text" name="username" {...username} />
           <Input label="E-mail" type="email" name="email" {...email} />
           <Input label="Senha" type="password" name="password" {...password} />
-          <Button disabled={loading}>Cadastrar</Button>
+          <Button disabled={loading}>
+            {loading ? "Cadastrando..." : "Cadastrar"}
+          </Button>
         </Form>
       </SectionForm>
     </BoxLogin>

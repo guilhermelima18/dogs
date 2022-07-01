@@ -25,7 +25,7 @@ export const Login = () => {
       const response = await getToken(params);
 
       if (response?.status === 200) {
-        navigate("/minha-conta");
+        navigate("/");
       }
     }
   };
@@ -38,9 +38,9 @@ export const Login = () => {
           <Input type="text" name="username" label="Usuário" {...username} />
           <Input type="password" name="password" label="Senha" {...password} />
           <Button type="submit" disabled={loading}>
-            Entrar
+            {loading ? "Entrando..." : "Entrar"}
           </Button>
-          <Link to="/login/perdeu">Perdeu a senha?</Link>
+          <Link to="/login/recuperar-senha">Perdeu a senha?</Link>
         </Form>
         <BoxCadastro>
           <h2>Cadastre-se</h2>
