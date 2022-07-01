@@ -9,6 +9,12 @@ export const BoxRegisterPhoto = styled.section`
   form button {
     margin-top: 1rem;
   }
+
+  @media (max-width: 40rem) {
+    & {
+      grid-template-columns: 1fr;
+    }
+  }
 `;
 
 interface BoxImagePreviewProps {

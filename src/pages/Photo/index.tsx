@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useGetPhoto } from "../../hooks/useGetPhoto";
+import { Head } from "../../components/Head";
 import { Layout } from "../../components/Layout";
 import { Loading } from "../../components/Loading";
 import { PhotoContent } from "../../components/Photo/PhotoContent";
-import { useGetPhoto } from "../../hooks/useGetPhoto";
-import {} from "../../styles/Photo";
 
 export default function Photo() {
   const { id } = useParams();
@@ -20,6 +20,7 @@ export default function Photo() {
 
   return (
     <>
+      <Head title={photo.photo.title} description={photo.photo.title} />
       {loading ? (
         <Loading />
       ) : (

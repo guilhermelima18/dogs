@@ -8,6 +8,7 @@ import { Button } from "../../../components/Button";
 import { Input } from "../../../components/Input";
 import loginImg from "../../../assets/login.jpg";
 import { SectionForm, Form, BoxLogin } from "../../../styles/Login";
+import { Head } from "../../../components/Head";
 
 export default function LoginCreate() {
   const navigate = useNavigate();
@@ -41,6 +42,10 @@ export default function LoginCreate() {
 
   return (
     <BoxLogin backgroundImage={loginImg}>
+      <Head
+        title="Login | Criar usuário"
+        description="Página criar usuário do site Dogs."
+      />
       <SectionForm className="animeLeft">
         <h1 className="title">Cadastre-se</h1>
         <Form onSubmit={handleFormCreateSubmit}>

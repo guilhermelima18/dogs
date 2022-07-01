@@ -1,5 +1,11 @@
-import {} from "./styles";
+import { DogsFooter } from "../Icons";
+import { BoxFooter } from "./styles";
 
 export const Footer = () => {
-  return <h1>Footer</h1>;
+  return (
+    <BoxFooter>
+      <DogsFooter />
+      <p>Dogs. Alguns direitos reservados.</p>
+    </BoxFooter>
+  );
 };

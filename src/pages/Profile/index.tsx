@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { Feed } from "../../components/Feed";
+import { Head } from "../../components/Head";
 import { Layout } from "../../components/Layout";
 
 export default function Profile() {
@@ -7,6 +8,10 @@ export default function Profile() {
 
   return (
     <Layout>
+      <Head
+        title={`Perfil | ${user}`}
+        description="Página de perfil do site Dogs."
+      />
       <section>
         <h1
           className="title"

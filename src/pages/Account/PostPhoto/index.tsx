@@ -2,11 +2,12 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCreatePhoto } from "../../../hooks/useCreatePhoto";
 import { useForm } from "../../../hooks/useForm";
+import { Head } from "../../../components/Head";
 import { Button } from "../../../components/Button";
 import { Input } from "../../../components/Input";
 import { Layout } from "../../../components/Layout";
 import { UserHeader } from "../../../components/User/UserHeader";
-import { BoxRegisterPhoto, BoxImagePreview } from "../../../styles/PostarFoto";
+import { BoxRegisterPhoto, BoxImagePreview } from "../../../styles/PostPhoto";
 
 type ImgProps = {
   preview: string;
@@ -51,6 +52,10 @@ export default function PostPhoto() {
 
   return (
     <Layout>
+      <Head
+        title="Minha conta | Postar foto"
+        description="Página postar foto do site Dogs."
+      />
       <UserHeader />
       <BoxRegisterPhoto className="animeLeft">
         <form onSubmit={handleFormSubmit}>

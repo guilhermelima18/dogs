@@ -5,6 +5,7 @@ import { Button } from "../../../components/Button";
 import { Input } from "../../../components/Input";
 import loginImg from "../../../assets/login.jpg";
 import { BoxLogin, SectionForm, Form } from "../../../styles/Login";
+import { Head } from "../../../components/Head";
 
 export default function LoginPasswordLost() {
   const { recoverPassword, loading } = useRecoverPassword();
@@ -29,6 +30,10 @@ export default function LoginPasswordLost() {
 
   return (
     <BoxLogin backgroundImage={loginImg}>
+      <Head
+        title="Login | Recuperar senha"
+        description="Página recuperar senha do site Dogs."
+      />
       <SectionForm className="animeLeft">
         <h1 className="title">Perdeu a senha?</h1>
         {message ? (

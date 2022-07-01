@@ -6,6 +6,7 @@ import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
 import loginImg from "../../assets/login.jpg";
 import { BoxLogin, SectionForm, Form, BoxCadastro } from "../../styles/Login";
+import { Head } from "../../components/Head";
 
 export const Login = () => {
   const { getToken, loading } = useAuthContext();
@@ -32,6 +33,7 @@ export const Login = () => {
 
   return (
     <BoxLogin backgroundImage={loginImg}>
+      <Head title="Login" description="Página login do usuário do site Dogs." />
       <SectionForm className="animeLeft">
         <h1 className="title">Login</h1>
         <Form onSubmit={handleLoginSubmit}>

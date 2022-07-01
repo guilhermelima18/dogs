@@ -51,6 +51,21 @@ export const GlobalStyle = createGlobalStyle`
     cursor: pointer;
   }
 
+  .app {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh + 10rem);
+  }
+
+  .appBody {
+    flex: 1;
+    margin: 2rem 0;
+  }
+
+  .VictoryContainer {
+    height: initial !important;
+  }
+
   .title {
     font-family: var(--type-second);
     line-height: 1;
